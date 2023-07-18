@@ -6,19 +6,23 @@ export const getCourts = async(req, res) => {
 
 export const saveNewCourt = async(req, res) => {
     const { description, type  } = req.body;
-    const newCourt = await Court.create({
-        description,
-        type
-    })
-
-    if (!newCourt) {
-        return res.status(500).json({
-            message: "No se pudo crear la cancha de forma exitosa"
+    try {
+        const newCourt = await Court.create({
+            description,
+            type
         })
+    
+        if (!newCourt) {
+            return res.status(500).json({
+                message: "No se pudo crear la cancha de forma exitosa"
+            })
+        }
+    
+        return res.status(201).json({
+            ok : true,
+            newCourt 
+        });
+    } catch (error) {
+        return res.status(500).json({ message : "Error inesperado en el servidor" })
     }
-
-    return res.status(201).json({
-        ok : true,
-        newCourt 
-    });
 };

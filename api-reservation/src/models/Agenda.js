@@ -13,7 +13,8 @@ const Agenda = sequelize.define('Agenda',
         type : DataTypes.DATE
     },
     status : {
-        type : DataTypes.STRING // 'disponible', 'reservada', 'mantenimiento'
+        type : DataTypes.STRING, // 'disponible', 'reservada', 'mantenimiento'
+        defaultValue : "disponible"
     }, 
       // ...
     },

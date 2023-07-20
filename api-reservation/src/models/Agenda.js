@@ -10,7 +10,7 @@ const Agenda = sequelize.define('Agenda',
         autoIncrement: true,
     },
     date : {
-        type : DataTypes.DATE
+        type : DataTypes.STRING
     },
     status : {
         type : DataTypes.STRING, // 'disponible', 'reservada', 'mantenimiento'

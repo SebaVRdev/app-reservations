@@ -1,3 +1,5 @@
+import moment from "moment"
+
 import Agenda from "../models/Agenda.js";
 import Court from "../models/Court.js";
 
@@ -28,17 +30,21 @@ export const newAgenda = async (req, res) => {
         if (!court) {
             return res.status(401).json({message: 'Cancha no encontrada'});
         }
-        /*const agenda = await Agenda.create({
-            date
+
+        
+        const dateMoment = moment(date).format('MMMM Do YYYY, h:mm:ss a');;
+        console.log({dateMoment : dateMoment}); 
+
+        const agenda = await Agenda.create({
+            date : dateMoment
         });
-
+        
         // Agregamos la cancha que se manda por parametro a la agenda recien creada con la fecha asignada
-        await court.addAgenda(agenda);*/
+        await court.addAgenda(agenda);
 
-        const dateParse = new Date(date)
-        console.log(dateParse) 
-
-        return res.status(201).json({ message : "Disponibilidad creada con exito" });
+        return res.status(201).json({ 
+          message : "Disponibilidad creada con exito", 
+          dateMoment : dateMoment});
     } catch (error) {
         
     }

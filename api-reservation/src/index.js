@@ -7,7 +7,7 @@ import * as models from "./models/index.js";
 
 console.log("Iniciando API")
 
-sequelize.sync({ force: true }).then(() => {
+sequelize.sync({ alter: true }).then(() => {
   app.listen(3000, () => {
     console.log('Servidor iniciado en el puerto 3000');
   });

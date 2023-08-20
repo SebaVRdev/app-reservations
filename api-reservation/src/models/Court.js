@@ -29,7 +29,10 @@ const Court = sequelize.define('Court', {
     hooks : {
       beforeCreate : (instance, options) => {
         instance.slug = slugify(instance.description)
-      }
+      },
+      beforeUpdate : (instance, options) => {
+        instance.slug = slugify(instance.description)
+      },
     }
   }
 );

@@ -11,12 +11,14 @@ export const verifyDisponibility = async ( req, res, next ) => {
                 status: 'disponible'
             },
         });
-    
+        
+        console.log(existAgenda)
+
         if (existAgenda) {
             console.log("Se puede reservar");
             next();
         }
-        
+        console.log("Fallo en MDL no pasa al controller");
         return res.status(409).json({ error: 'La fecha ya está reservada.' });
     } catch (error) {
         console.log(error);

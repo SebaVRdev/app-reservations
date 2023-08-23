@@ -1,6 +1,7 @@
 import { Op, Sequelize } from "sequelize";
 import moment from "moment";
 
+import { newAgenda } from '../helpers/agendasHelpers.js';
 import Agenda from "../models/Agenda.js";
 import Court from "../models/Court.js";
 
@@ -87,7 +88,7 @@ export const getAgendasInDate = async (req, res) => {
     }
 };
 
-export const newAgenda = async (req, res) => {
+export const newAgendaSave = async (req, res) => {
     const { date } = req.body;
     const { idCourt } = req.params;
     
@@ -100,18 +101,18 @@ export const newAgenda = async (req, res) => {
       if (!court) {
           return res.status(401).json({message: 'Cancha no encontrada'});
       }
-
       const dateMoment = moment(date).format('YYYY-MM-DD HH:mm:ss');
-      const agenda = await Agenda.create({
+      //console.log(dateMoment);
+      //await newAgenda(court.idCourt, dateMoment);
+      /* const agenda = await Agenda.create({
           date : dateMoment
       });
-        
         // Agregamos la cancha que se manda por parametro a la agenda recien creada con la fecha asignada
-        await court.addAgenda(agenda);
+        await court.addAgenda(agenda); */
 
         return res.status(201).json({ 
             message : "Disponibilidad creada con exito", 
-            dateMoment : dateMoment
+            dateMoment : date
           }
         );
     } catch (error) {

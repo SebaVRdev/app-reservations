@@ -97,24 +97,17 @@ export const newAgendaSave = async (req, res) => {
       que se va a ejecutar antes que este controlador, que va a verificar si esta disponible la 
       cancha para respectiva fecha
       */
-      const court = await Court.findByPk(idCourt);
-      if (!court) {
-          return res.status(401).json({message: 'Cancha no encontrada'});
-      }
-      const dateMoment = moment(date).format('YYYY-MM-DD HH:mm:ss');
-      //console.log(dateMoment);
-      //await newAgenda(court.idCourt, dateMoment);
-      /* const agenda = await Agenda.create({
-          date : dateMoment
-      });
-        // Agregamos la cancha que se manda por parametro a la agenda recien creada con la fecha asignada
-        await court.addAgenda(agenda); */
+      const court = await req.court;
 
-        return res.status(201).json({ 
-            message : "Disponibilidad creada con exito", 
-            dateMoment : date
-          }
-        );
+      const dateMoment = moment(date).format('YYYY-MM-DD HH:mm:ss');
+      console.log(dateMoment);
+      await newAgenda(court.idCourt, dateMoment);
+
+      return res.status(201).json({ 
+          message : "Disponibilidad creada con exito", 
+          dateMoment : date
+        }
+      );
     } catch (error) {
       return res.status(500).json({ message : "Error inesperado en el servidor" })
     }

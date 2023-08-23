@@ -35,43 +35,27 @@ async function lastDateInRegister (){
 async function getCourtsInfo(){
   const results = await Court.findAll();
   const data = await JSON.parse(JSON.stringify(results));
-
   return data;
 }
 
 
 async function crearNuevoRegistro() {
     const beforeDate = await lastDateInRegister();
-    //const [date, _] = beforeDate.split(' ');
-    const date = beforeDate.split(' ')[0];
     const actualDate = moment().format('YYYY-MM-DD');
     const updateDate = moment(beforeDate).add(1, 'days').format('YYYY-MM-DD');
-    console.log(updateDate);
     const data = await getCourtsInfo(); 
-    console.log(data)
     data.map(async (court) => {
       console.log(court)
       for (let index = 0; index < availableHours.length; index++) {
-        let dateSave = `${actualDate} ${availableHours[index]}`
+        let dateSave = `${updateDate} ${availableHours[index]}`
         await newAgenda(court.idCourt, dateSave);
       }  
     });
-
-    /* TuModelo.create({
-      // Propiedades del nuevo registro
-    })
-      .then(() => {
-        console.log('Nuevo registro creado automáticamente.');
-      })
-      .catch(error => {
-        console.error('Error al crear el registro:', error);
-      });
-   */
 }
   
   // Configura la tarea programada para ejecutarse todos los días a la medianoche
 cron.schedule('0 0 * * *', () => {
-  console.log('Entro');
+  console.log('Se agragaran datos para la nueva fecha');
   crearNuevoRegistro();
 }); 
 crearNuevoRegistro();

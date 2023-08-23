@@ -16,8 +16,7 @@ export const newAgenda = async (idCourt, date) => {
       });
 
       // Agregamos la cancha que se manda por parametro a la agenda recien creada con la fecha asignada
-      await court.addAgenda(agenda);
-
+      const result = await court.addAgenda(agenda);
       return agenda;
     } catch (error) {
         console.log(error);

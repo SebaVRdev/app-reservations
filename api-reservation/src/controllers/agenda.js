@@ -89,26 +89,24 @@ export const getAgendasInDate = async (req, res) => {
 };
 
 export const newAgendaSave = async (req, res) => {
-    const { date } = req.body;
-    const { idCourt } = req.params;
+  console.log("CONTROLLER: newAgendaSave")
+  const { date } = req.body;
     
-    try {
-      /*La siguiente validacion se podria eliminar ya que existe un middleware 
-      que se va a ejecutar antes que este controlador, que va a verificar si esta disponible la 
-      cancha para respectiva fecha
-      */
-      const court = await req.court;
-
-      const dateMoment = moment(date).format('YYYY-MM-DD HH:mm:ss');
-      console.log(dateMoment);
-      await newAgenda(court.idCourt, dateMoment);
-
-      return res.status(201).json({ 
-          message : "Disponibilidad creada con exito", 
-          dateMoment : date
-        }
-      );
-    } catch (error) {
-      return res.status(500).json({ message : "Error inesperado en el servidor" })
-    }
+  try {
+    /*La siguiente validacion se podria eliminar ya que existe un middleware 
+    que se va a ejecutar antes que este controlador, que va a verificar si esta disponible la 
+    cancha para respectiva fecha
+    */
+    const court = await req.court;
+    const dateMoment = moment(date).format('YYYY-MM-DD HH:mm:ss');
+    console.log(dateMoment);
+    await newAgenda(court.idCourt, dateMoment);
+    return res.status(201).json({ 
+        message : "Disponibilidad creada con exito", 
+        dateMoment : date
+      }
+    );
+  } catch (error) {
+    return res.status(500).json({ message : "Error inesperado en el servidor" })
+  }
 }

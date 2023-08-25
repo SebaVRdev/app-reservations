@@ -16,6 +16,9 @@ const Agenda = sequelize.define('Agenda',
         type : DataTypes.STRING, // 'disponible', 'reservada', 'mantenimiento'
         defaultValue : "disponible"
     }, 
+    price: {
+        type : DataTypes.FLOAT
+    }
       // ...
     },
     {

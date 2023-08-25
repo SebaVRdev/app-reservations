@@ -8,16 +8,16 @@ export const newAgenda = async (idCourt, date) => {
         const court = await Court.findByPk(idCourt);
         if (!court) {
           return 'no hay cancha';
-      }
+        }
 
-      const dateMoment = moment(date).format('YYYY-MM-DD HH:mm:ss');
-      const agenda = await Agenda.create({
+        const dateMoment = moment(date).format('YYYY-MM-DD HH:mm:ss');
+        const agenda = await Agenda.create({
           date : dateMoment
-      });
+         });
 
-      // Agregamos la cancha que se manda por parametro a la agenda recien creada con la fecha asignada
-      const result = await court.addAgenda(agenda);
-      return agenda;
+        // Agregamos la cancha que se manda por parametro a la agenda recien creada con la fecha asignada
+        const result = await court.addAgenda(agenda);
+        return agenda;
     } catch (error) {
         console.log(error);
     }

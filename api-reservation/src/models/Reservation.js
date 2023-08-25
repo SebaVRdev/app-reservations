@@ -9,22 +9,19 @@ const Reservation = sequelize.define('Reservation', {
         primaryKey: true,
         autoIncrement: true,
       },
-      // ...
-      price : {
+      nameUser: {
+        type: DataTypes.STRING,
+      },
+      emailUser: {
+        type: DataTypes.STRING,
+      },
+      priceTotal : {
         type : DataTypes.FLOAT
-      },
-      startTime : {
-        type : DataTypes.DATE,
-        defaultValue : new Date() 
-      },
-      finishTime : {
-        type : DataTypes.DATE,
-        defaultValue : new Date()
       }
     },
     {
       // Opciones adicionales del modelo
-      timestamps : false 
+      timestamps : false
     }
 );
 
